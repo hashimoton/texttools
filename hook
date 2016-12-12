@@ -1,0 +1,74 @@
+#! /usr/bin/env ruby
+# coding: utf-8
+# Continue lines if the following line contains the give pattern.
+
+require "optparse"
+
+class HookCommand
+  
+  def initialize()
+  end
+
+  def opt_parse(argv)
+    opts = {}
+    
+    OptionParser.new do |opt|
+      begin
+        opt.version = '0.1.0'
+        opt.banner += " FILE [FILE...]"
+        opt.separator("\nOptions:")
+        
+        opt.on('-p=REGEX',
+          "Pattern") {|v| opts[:e] = v}
+        
+        opt.parse!(ARGV)
+      rescue => e
+        $stderr.puts "ERROR: #{e}.\n#{opt}"
+        exit 1
+      end
+    end
+    
+    return opts
+  end
+  
+  def hook(file)
+    line = ""
+    prev_line = ""
+    line_count = 0
+    
+    File.open(file).each_line do |line|
+      if line_count > 0 && line =~ @pattern
+        print prev_line.chomp
+        print "--HOOKED--"
+      else
+        print prev_line
+      end
+      
+      prev_line = line
+      line_count += 1
+    end
+    
+    puts line
+  end
+    
+  def main(argv)
+    opts = opt_parse(argv)
+    @pattern = Regexp.new(opts[:e])
+    
+    argv.each do |file|
+      hook(file)
+    end
+    
+  end # main
+
+end # class
+
+
+################################
+
+
+HookCommand.new.main(ARGV)
+
+exit 0
+
+# EOF
