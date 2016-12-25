@@ -9,7 +9,7 @@ Miscellaneous commands for processing text files.
 hook
 ===============
 
-Continue lines if the following line contains the give pattern.
+Continue lines if the following line contains the given pattern.
 
 Usage::
   
@@ -17,8 +17,9 @@ Usage::
   Usage: hook [options] FILE [FILE...]
 
   Options:
-      -p=REGEX                         Pattern
-
+      -d=DELIMITER                     Delimiter(--HOOKED--)
+      -e=REGEX                         Pattern
+      -v                               Invert match
 
 
 .. EOF

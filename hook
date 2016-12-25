@@ -18,8 +18,12 @@ class HookCommand
         opt.banner += " FILE [FILE...]"
         opt.separator("\nOptions:")
         
-        opt.on('-p=REGEX',
+        opt.on('-d=DELIMITER',
+          "Delimiter(--HOOKED--)") {|v| opts[:d] = v}
+        opt.on('-e=REGEX',
           "Pattern") {|v| opts[:e] = v}
+        opt.on('-v',
+          "Invert match") {|v| opts[:v] = v}
         
         opt.parse!(ARGV)
       rescue => e
@@ -31,15 +35,19 @@ class HookCommand
     return opts
   end
   
+  def hook?(line)
+    return @is_invert ? (line !~ @pattern) : (line =~ @pattern)
+  end
+  
   def hook(file)
     line = ""
     prev_line = ""
     line_count = 0
     
     File.open(file).each_line do |line|
-      if line_count > 0 && line =~ @pattern
+      if line_count > 0 && hook?(line)
         print prev_line.chomp
-        print "--HOOKED--"
+        print @delimiter
       else
         print prev_line
       end
@@ -53,7 +61,18 @@ class HookCommand
     
   def main(argv)
     opts = opt_parse(argv)
-    @pattern = Regexp.new(opts[:e])
+    @delimiter = opts[:d]
+    if @delimiter.nil?
+      @delimiter = "--HOOKED--"
+    end
+    
+    if opts[:e].nil?
+      @pattern = Regexp.new("")
+    else
+      @pattern = Regexp.new(opts[:e])
+    end
+    
+    @is_invert = opts[:v]
     
     argv.each do |file|
       hook(file)
