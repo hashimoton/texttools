@@ -6,7 +6,7 @@ Miscellaneous commands for processing text files.
 
 
 ===============
-hook
+Hook
 ===============
 
 Join lines with a pattern.
