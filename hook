@@ -36,7 +36,7 @@ class HookCommand
   end
   
   def hook?(line)
-    return @is_invert ? (line !~ @pattern) : (line =~ @pattern)
+    return @is_invert ? (line =~ @pattern) : (line !~ @pattern)
   end
   
   def hook(file)
@@ -45,18 +45,21 @@ class HookCommand
     line_count = 0
     
     File.open(file).each_line do |line|
-      if line_count > 0 && hook?(line)
-        print prev_line.chomp
+      print prev_line
+      line.chomp!
+      if hook?(line)
         print @delimiter
       else
-        print prev_line
+        if line_count > 0
+          puts ""
+        end
       end
       
       prev_line = line
       line_count += 1
     end
     
-    puts line
+    puts prev_line
   end
     
   def main(argv)
