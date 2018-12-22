@@ -39,12 +39,12 @@ class HookCommand
     return @is_invert ? (line =~ @pattern) : (line !~ @pattern)
   end
   
-  def hook(file)
+  def hook
     line = ""
     prev_line = ""
     line_count = 0
     
-    File.open(file).each_line do |line|
+    ARGF.each_line do |line|
       print prev_line
       line.chomp!
       if hook?(line)
@@ -77,9 +77,7 @@ class HookCommand
     
     @is_invert = opts[:v]
     
-    argv.each do |file|
-      hook(file)
-    end
+    hook
     
   end # main
 

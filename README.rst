@@ -24,17 +24,17 @@ Usage::
 Examples
 -----------
 
-Each line should start with 1 or 3 or 4 or 8
+Each line should contain 1 or 3 or 4 or 8
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ::
 
-  $ seq 10 > 10.txt
-  $ hook -e '[1348]' 10.txt
+  $ seq 10 | hook -e '[1348]'
   1--HOOKED--2
   3
   4--HOOKED--5--HOOKED--6--HOOKED--7
   8--HOOKED--9
   10
+
 
 
 Tips
