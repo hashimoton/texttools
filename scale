@@ -1,0 +1,74 @@
+#! /usr/bin/env ruby
+# coding: utf-8
+# Visualize the magunitude of number.
+
+require "optparse"
+
+class ScaleCommand
+  
+  def initialize()
+  end
+
+  def opt_parse(argv)
+    opts = {}
+    
+    OptionParser.new do |opt|
+      begin
+        opt.version = '0.1.0'
+        opt.banner += " FILE [FILE...]"
+        opt.separator("\nOptions:")
+        
+        opt.on('-d=DELIMITER',
+          'Delimiter(" ")') {|v| opts[:d] = v}
+        opt.on('-f=NUMBER',
+          "Field(0)") {|v| opts[:f] = v}
+        opt.on('-s=NUMBER',
+          "Step(10)") {|v| opts[:s] = v}
+        opt.on('--min=NUMBER',
+          "Minimum value(0.0)") {|v| opts[:min] = v}
+        opt.on('--max=NUMBER',
+          "Maximum value(10.0)") {|v| opts[:max] = v}
+        
+        opt.parse!(ARGV)
+      rescue => e
+        $stderr.puts "ERROR: #{e}.\n#{opt}"
+        exit 1
+      end
+    end
+    
+    return opts
+  end
+
+
+  def main(argv)
+    opts = opt_parse(argv)
+    @delimiter = opts[:d] ? opts[:d] : " "
+    @field_index = opts[:f] ? opts[:f].to_i : 0
+    @step = opts[:s] ? opts[:s].to_i : 10
+    @min = opts[:min] ? opts[:min].to_f : 0.0
+    @max = opts[:max] ? opts[:max].to_f : 10.0
+    @max_min = @max - @min
+
+    
+    ARGF.each_line do |line|
+      line.chomp!
+      fields = line.split(@delimiter);
+      raw_value = fields[@field_index]
+      value = (@step * fields[@field_index].to_f / @max_min).round
+      fields[@field_index] = "#{'*' * value}#{@delimiter}#{raw_value}"
+      puts fields.join(@delimiter)
+    end
+    
+  end # main
+
+end # class
+
+
+################################
+
+
+ScaleCommand.new.main(ARGV)
+
+exit 0
+
+# EOF

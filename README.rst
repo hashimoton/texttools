@@ -124,5 +124,65 @@ Insert wedges at fresh starts
   
 
 
+
+===============
+Scale
+===============
+
+Visualize the magunitude of number.
+
+Usage::
+
+  $ scale -h
+  Usage: scale [options] FILE [FILE...]
+
+  Options:
+      -d=DELIMITER                     Delimiter(" ")
+      -f=NUMBER                        Field(0)
+      -s=NUMBER                        Step(10)
+          --min=NUMBER                 Minimum value(0.0)
+          --max=NUMBER                 Maximum value(10.0)
+
+
+Examples
+------------
+
+Simple 1 to 10
+~~~~~~~~~~~~~~~~~
+
+::
+
+  $ seq 10 | scale
+  * 1
+  ** 2
+  *** 3
+  **** 4
+  ***** 5
+  ****** 6
+  ******* 7
+  ******** 8
+  ********* 9
+  ********** 10
+
+
+Random number < 100
+~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  $ for i in {1..10}; do echo $(( $RANDOM % 100 )); done | ./scale -s 20 --max 100
+  ***************** 83
+  ************** 69
+  ************ 58
+  *** 15
+  ************ 58
+  ******* 37
+  ****** 29
+  ******************** 99
+   0
+  *************** 77
+  $
+
+
 .. EOF
 
