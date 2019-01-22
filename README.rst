@@ -135,13 +135,11 @@ Usage::
 
   $ scale -h
   Usage: scale [options] FILE [FILE...]
-
+  
   Options:
       -d=DELIMITER                     Delimiter(" ")
       -f=NUMBER                        Field(0)
-      -s=NUMBER                        Step(10)
-          --min=NUMBER                 Minimum value(0.0)
-          --max=NUMBER                 Maximum value(10.0)
+      -m=NUMBER                        Multiplier(1.0)
 
 
 Examples
