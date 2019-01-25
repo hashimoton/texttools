@@ -138,7 +138,7 @@ Usage::
   
   Options:
       -d=DELIMITER                     Delimiter(" ")
-      -f=NUMBER                        Field(0)
+      -f=NUMBER                        Field base 1 (0 = the last field)
       -m=NUMBER                        Multiplier(1.0)
 
 
@@ -150,17 +150,17 @@ Simple 1 to 10
 
 ::
 
-  $ seq 10 | scale
-  * 1
-  ** 2
-  *** 3
-  **** 4
-  ***** 5
-  ****** 6
-  ******* 7
-  ******** 8
-  ********* 9
-  ********** 10
+  $ seq -f'a b c %.0f' 10 | scale
+  a b c + 1
+  a b c ++ 2
+  a b c +++ 3
+  a b c ++++ 4
+  a b c +++++ 5
+  a b c ++++++ 6
+  a b c +++++++ 7
+  a b c ++++++++ 8
+  a b c +++++++++ 9
+  a b c ++++++++++ 10
 
 
 Random number -50...49
@@ -180,6 +180,22 @@ Random number -50...49
   -------- -16
   +++++++++++++++ 30
   $
+
+Field number
+~~~~~~~~~~~~~~~~
+::
+
+  $ seq 10 | tac | cat -n | scale -f 1
+  + 1 10
+  ++ 2 9
+  +++ 3 8
+  ++++ 4 7
+  +++++ 5 6
+  ++++++ 6 5
+  +++++++ 7 4
+  ++++++++ 8 3
+  +++++++++ 9 2
+  ++++++++++ 10 1
 
 
 

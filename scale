@@ -21,7 +21,7 @@ class ScaleCommand
         opt.on('-d=DELIMITER',
           'Delimiter(" ")') {|v| opts[:d] = v}
         opt.on('-f=NUMBER',
-          "Field(0)") {|v| opts[:f] = v}
+          "Field base 1 (0 = the last field)") {|v| opts[:f] = v}
         opt.on('-m=NUMBER',
           "Multiplier(1.0)") {|v| opts[:m] = v}
         
@@ -39,7 +39,8 @@ class ScaleCommand
   def main(argv)
     opts = opt_parse(argv)
     @delimiter = opts[:d] ? opts[:d] : " "
-    @field_index = opts[:f] ? opts[:f].to_i : 0
+    @field_index = opts[:f] ? opts[:f].to_i - 1 : -1
+    
     @multiplier = opts[:m] ? opts[:m].to_f : 1.0
 
     
