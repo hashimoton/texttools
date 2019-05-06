@@ -86,7 +86,7 @@ end # class
 
 ################################
 
-
+Encoding.default_external = 'utf-8'
 HookCommand.new.main(ARGV)
 
 exit 0

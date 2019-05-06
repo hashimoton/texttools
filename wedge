@@ -19,7 +19,7 @@ class WedgeCommand
     
     OptionParser.new do |opt|
       begin
-        opt.version = '0.1.0'
+        opt.version = '0.1.1'
         opt.banner += " FILE [FILE...]"
         opt.separator("\nOptions:")
         
@@ -91,7 +91,7 @@ end # class
 
 ################################
 
-
+Encoding.default_external = 'utf-8'
 WedgeCommand.new.main(ARGV)
 
 exit 0
