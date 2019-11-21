@@ -4,6 +4,46 @@ Text Tools
 
 Miscellaneous commands for processing text files.
 
+===============
+Band
+===============
+
+Aggregate values for each key.
+
+Usage::
+
+  $ band -h
+  Usage: band [options] FILE [FILE...]
+  
+  Options:
+      -d=DELIMITER                     Delimiter(spaces)
+      -c=COMMAND                       Command for values (values.size)
+
+Setup
+-------------
+
+::
+
+  $ gem install keybreak
+
+
+Examples
+-----------
+
+Count files for each base name
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+::
+
+  $ \ls
+  README.rst  band  band.bat  hook  hook.bat  scale  scale.bat  wedge  wedge.bat
+  $ \ls | band -d.
+  README.1
+  band.2
+  hook.2
+  scale.2
+  wedge.2
+  $
+
 
 ===============
 Hook
