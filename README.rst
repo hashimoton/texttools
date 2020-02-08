@@ -2,7 +2,7 @@
 Text Tools
 ******************
 
-Miscellaneous commands for processing text files.
+Miscellaneous commands for processing text files written in Ruby.
 
 ===============
 Band
@@ -238,6 +238,29 @@ Field number
   ++++++++++ 10 1
 
 
+
+===============
+Requirements
+===============
+
+Ruby 2.x
+
+
+===============
+Development
+===============
+
+::
+
+  $ cd test
+  $ ruby test_<command>.rb
+
+
+===============
+License
+===============
+
+Public Domain
 
 .. EOF
 
