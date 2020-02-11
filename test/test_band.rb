@@ -9,6 +9,7 @@ class TestBand < MiniTest::Test
 
   def setup
     @ch = CommandHelper.new
+    @exe = '../bin/band'
   end
 
   def teardown
@@ -16,22 +17,22 @@ class TestBand < MiniTest::Test
   end
 
   def test_empty
-    @ch.run("band", "")
+    @ch.run("#{@exe}", "")
     assert_equal "", @ch.output
   end
  
   def test_count
-    @ch.run("band", "a\na\nb\nc\nc\nc\n")
+    @ch.run("#{@exe}", "a\na\nb\nc\nc\nc\n")
     assert_equal "a 2\nb 1\nc 3\n", @ch.output
   end
   
   def test_command
-    @ch.run("band -c 'values.join(\"-\")'", "a 1\na 2\nb 1\nc 1\nc 2\nc 3\n")
+    @ch.run("#{@exe} -c 'values.join(\"-\")'", "a 1\na 2\nb 1\nc 1\nc 2\nc 3\n")
     assert_equal "a 1-2\nb 1\nc 1-2-3\n", @ch.output
   end
   
   def test_delimiter
-    @ch.run("band -d,", "a,1\na,2\nb,1\nc,1\nc,2\nc,3\n")
+    @ch.run("#{@exe} -d,", "a,1\na,2\nb,1\nc,1\nc,2\nc,3\n")
     assert_equal "a,2\nb,1\nc,3\n", @ch.output
   end
 
