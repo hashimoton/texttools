@@ -24,6 +24,8 @@ class HookCommand
           "Delimiter(#{DEFAULT_DELIMITER})") {|v| opts[:d] = v}
         opt.on('-e=REGEX',
           "Pattern") {|v| opts[:e] = v}
+        opt.on('-u',
+          "Unhook") {|v| opts[:u] = v}
         opt.on('-v',
           "Invert match") {|v| opts[:v] = v}
         
@@ -63,6 +65,12 @@ class HookCommand
     
     puts prev_line
   end
+  
+  def unhook
+    ARGF.each_line do |line|
+      print line.gsub(@delimiter, "\n")
+    end
+  end
     
   def main(argv)
     opts = opt_parse(argv)
@@ -79,7 +87,13 @@ class HookCommand
     
     @is_invert = opts[:v]
     
-    hook
+    @is_unhook = opts[:u]
+    
+    if @is_unhook
+      unhook
+    else
+      hook
+    end
     
   end # main
 

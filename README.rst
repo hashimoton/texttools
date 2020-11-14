@@ -84,6 +84,12 @@ Unhook
 ~~~~~~~~
 ::
 
+  $ hook -u hooked.txt > unhooked.txt
+
+Another way
+
+::
+
   $ sed 's/\-\-HOOKED\-\-/\n/g' hooked.txt > unhooked.txt
 
 
