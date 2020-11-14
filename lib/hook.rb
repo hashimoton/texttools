@@ -5,6 +5,8 @@
 require "optparse"
 
 class HookCommand
+
+  DEFAULT_DELIMITER = '--HOOKED--'
   
   def initialize()
   end
@@ -19,7 +21,7 @@ class HookCommand
         opt.separator("\nOptions:")
         
         opt.on('-d=DELIMITER',
-          "Delimiter(--HOOKED--)") {|v| opts[:d] = v}
+          "Delimiter(#{DEFAULT_DELIMITER})") {|v| opts[:d] = v}
         opt.on('-e=REGEX',
           "Pattern") {|v| opts[:e] = v}
         opt.on('-v',
@@ -66,7 +68,7 @@ class HookCommand
     opts = opt_parse(argv)
     @delimiter = opts[:d]
     if @delimiter.nil?
-      @delimiter = "--HOOKED--"
+      @delimiter = DEFAULT_DELIMITER
     end
     
     if opts[:e].nil?
