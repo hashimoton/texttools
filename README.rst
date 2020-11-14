@@ -76,10 +76,6 @@ Each line should contain 1 or 3 or 4 or 8
   10
 
 
-
-Tips
--------
-
 Unhook
 ~~~~~~~~
 ::
