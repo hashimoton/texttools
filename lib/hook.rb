@@ -39,31 +39,25 @@ class HookCommand
     return opts
   end
   
-  def hook?(line)
-    return @is_invert ? (line =~ @pattern) : (line !~ @pattern)
+  def new_hook?(line)
+    return @is_invert ? (line !~ @pattern) : (line =~ @pattern)
   end
   
   def hook
-    line = ""
     prev_line = ""
-    line_count = 0
     
     ARGF.each_line do |line|
-      print prev_line
-      line.chomp!
-      if hook?(line)
-        print @delimiter
+      if new_hook?(line)
+        print prev_line
       else
-        if line_count > 0
-          puts ""
-        end
+        print prev_line.chomp
+        print @delimiter
       end
       
       prev_line = line
-      line_count += 1
     end
     
-    puts prev_line
+    print prev_line
   end
   
   def unhook
