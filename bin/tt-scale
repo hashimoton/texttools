@@ -4,6 +4,6 @@ BIN_DIR=$(cd $(dirname "$0"); pwd)
 TOOL_DIR=$(dirname "$BIN_DIR")
 LIB_DIR="$TOOL_DIR/lib"
 
-ruby $LIB_DIR/scale.rb $@
+ruby $LIB_DIR/scale.rb "$@"
 
 # EOF
