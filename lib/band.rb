@@ -15,12 +15,16 @@ class BandCommand
     
     OptionParser.new do |opt|
       begin
-        opt.version = '0.1.0'
+        opt.version = '0.2.0'
         opt.banner += " FILE [FILE...]"
         opt.separator("\nOptions:")
         
         opt.on('-d=DELIMITER',
           "Delimiter(spaces)") {|v| opts[:d] = v}
+        opt.on('-k=KEY_FIELD',
+          "Key Field(1)") {|v| opts[:k] = v}
+        opt.on('-v=VALUE_FIELD',
+          "Value Field(1)") {|v| opts[:v] = v}
         opt.on('-c=COMMAND',
           "Command for values (values.size)") {|v| opts[:c] = v}
         
@@ -52,6 +56,20 @@ class BandCommand
       delimiter = " "
     end
     
+    key_field = opts[:k]
+    if key_field.nil?
+      key_index = 0
+    else
+      key_index = key_field.to_i - 1
+    end
+    
+    value_field = opts[:v]
+    if value_field.nil?
+      value_index = 0
+    else
+      value_index = value_field.to_i - 1
+    end
+    
     if opts[:c].nil?
       command = "values.size"
     else
@@ -65,7 +83,9 @@ class BandCommand
       c.on(:keyend) {|key| puts "#{key}#{delimiter}#{afunc.call(values)}"}
       
       ARGF.each_line do |line|
-        key, value = line.chomp.split(delimiter)
+        fields = line.chomp.split(delimiter)
+        key = fields[key_index]
+        value = fields[value_index]
         c.feed(key)
         values.push(value)
       end

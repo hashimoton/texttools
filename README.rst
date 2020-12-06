@@ -13,11 +13,14 @@ Aggregate values for each key.
 Usage::
 
   $ tt-band -h
-  Usage: tt-band [options] FILE [FILE...]
-  
+  Usage: band [options] FILE [FILE...]
+
   Options:
       -d=DELIMITER                     Delimiter(spaces)
+      -k=KEY_FIELD                     Key Field(1)
+      -v=VALUE_FIELD                   Value Field(1)
       -c=COMMAND                       Command for values (values.size)
+
 
 Setup
 -------------
@@ -30,19 +33,23 @@ Setup
 Examples
 -----------
 
-Count files for each base name
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Stem-and-leaf display
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ::
 
-  $ \ls
-  README.rst  tt-band  tt-band.bat  tt-hook  tt-hook.bat  tt-scale  tt-scale.bat  tt-wedge  tt-wedge.bat
-  $ \ls | tt-band -d.
-  README.1
-  tt-band.2
-  tt-hook.2
-  tt-scale.2
-  tt-wedge.2
+  $ seq 0 0.3 10 | tt-band -d. -v2 -c 'values.join("-")'
+  0.0-3-6-9
+  1.2-5-8
+  2.1-4-7
+  3.0-3-6-9
+  4.2-5-8
+  5.1-4-7
+  6.0-3-6-9
+  7.2-5-8
+  8.1-4-7
+  9.0-3-6-9
   $
+
 
 
 ===============
