@@ -9,7 +9,7 @@ class TestBand < MiniTest::Test
 
   def setup
     @ch = CommandHelper.new
-    @exe = '../bin/band'
+    @exe = '../bin/tt-band'
   end
 
   def teardown

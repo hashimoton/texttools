@@ -9,7 +9,7 @@ class TestHook < MiniTest::Test
 
   def setup
     @ch = CommandHelper.new
-    @exe = '../bin/hook'
+    @exe = '../bin/tt-hook'
   end
 
   def teardown

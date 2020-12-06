@@ -9,7 +9,7 @@ class TestWedge < MiniTest::Test
 
   def setup
     @ch = CommandHelper.new
-    @exe = '../bin/wedge'
+    @exe = '../bin/tt-wedge'
   end
 
   def teardown

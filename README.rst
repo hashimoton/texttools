@@ -12,8 +12,8 @@ Aggregate values for each key.
 
 Usage::
 
-  $ band -h
-  Usage: band [options] FILE [FILE...]
+  $ tt-band -h
+  Usage: tt-band [options] FILE [FILE...]
   
   Options:
       -d=DELIMITER                     Delimiter(spaces)
@@ -35,13 +35,13 @@ Count files for each base name
 ::
 
   $ \ls
-  README.rst  band  band.bat  hook  hook.bat  scale  scale.bat  wedge  wedge.bat
-  $ \ls | band -d.
+  README.rst  tt-band  tt-band.bat  tt-hook  tt-hook.bat  tt-scale  tt-scale.bat  tt-wedge  tt-wedge.bat
+  $ \ls | tt-band -d.
   README.1
-  band.2
-  hook.2
-  scale.2
-  wedge.2
+  tt-band.2
+  tt-hook.2
+  tt-scale.2
+  tt-wedge.2
   $
 
 
@@ -53,8 +53,8 @@ Join lines with a pattern.
 
 Usage::
 
-  $ hook -h
-  Usage: hook [options] FILE [FILE...]
+  $ tt-hook -h
+  Usage: tt-hook [options] FILE [FILE...]
 
   Options:
       -d=DELIMITER                     Delimiter(--HOOKED--)
@@ -68,7 +68,7 @@ Each line should contain 1 or 3 or 4 or 8
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ::
 
-  $ seq 10 | hook -e '[1348]'
+  $ seq 10 | tt-hook -e '[1348]'
   1--HOOKED--2
   3
   4--HOOKED--5--HOOKED--6--HOOKED--7
@@ -80,7 +80,7 @@ Unhook
 ~~~~~~~~
 ::
 
-  $ hook -u hooked.txt > unhooked.txt
+  $ tt-hook -u hooked.txt > unhooked.txt
 
 Another way
 
@@ -98,8 +98,8 @@ Split a file into pieces determined by a function.
 
 Usage::
 
-  $ wedge -h
-  Usage: wedge [options] FILE [FILE...]
+  $ tt-wedge -h
+  Usage: tt-wedge [options] FILE [FILE...]
   
   Options:
       -b=FUNCTION                      A function of line. Returns true at each breakpoint (default = false)
@@ -115,7 +115,7 @@ Split a file when the line contains a key word
 ::
 
   $ seq 10 > 1-10.txt
-  $ wedge -o incl1 -b 'line.include?("1")' 1-10.txt
+  $ tt-wedge -o incl1 -b 'line.include?("1")' 1-10.txt
   $ cat incl1_0
   1
   2
@@ -133,22 +133,22 @@ Split a file when the line contains a key word
 
 On Windows quotations needs to be escaped::
 
-  > wedge -o incl1 -b 'line.include?(\"1\")' 1-10.txt
+  > tt-wedge -o incl1 -b 'line.include?(\"1\")' 1-10.txt
 
 Otherwise you will get::
 
-  > wedge -b 'line.start_with?("1")'  .\10.txt
+  > tt-wedge -b 'line.start_with?("1")'  .\10.txt
   (eval):2:in `start_with?': no implicit conversion of Fixnum into String (TypeError)
           from (eval):2:in `block in breakpoint_function'
 
 
 
-Insert wedges at fresh starts
+Insert tt-wedges at fresh starts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-  $ echo -e "1\n2\n3\n1\n2\n1\n2\n3\n2\n3" | wedge -b 'c = line.to_i; b = (!@prev.nil? && c < @prev); @prev = c; return b'
+  $ echo -e "1\n2\n3\n1\n2\n1\n2\n3\n2\n3" | tt-wedge -b 'c = line.to_i; b = (!@prev.nil? && c < @prev); @prev = c; return b'
   1
   2
   3
@@ -175,8 +175,8 @@ Visualize the magunitude of number.
 
 Usage::
 
-  $ scale -h
-  Usage: scale [options] FILE [FILE...]
+  $ tt-scale -h
+  Usage: tt-scale [options] FILE [FILE...]
   
   Options:
       -d=DELIMITER                     Delimiter(" ")
@@ -192,7 +192,7 @@ Simple 1 to 10
 
 ::
 
-  $ seq -f'a b c %.0f' 10 | scale
+  $ seq -f'a b c %.0f' 10 | tt-scale
   a b c + 1
   a b c ++ 2
   a b c +++ 3
@@ -210,7 +210,7 @@ Random number -50...49
 
 ::
 
-  $ for i in {1..10}; do echo $(( $RANDOM % 100 -50 )); done | scale -m 0.5
+  $ for i in {1..10}; do echo $(( $RANDOM % 100 -50 )); done | tt-scale -m 0.5
   +++++++++++++++++ 33
   -------------- -28
   ------ -12
@@ -227,7 +227,7 @@ Field number
 ~~~~~~~~~~~~~~~~
 ::
 
-  $ seq 10 | tac | cat -n | scale -f 1
+  $ seq 10 | tac | cat -n | tt-scale -f 1
   + 1 10
   ++ 2 9
   +++ 3 8

@@ -8,7 +8,7 @@ class TestScale < MiniTest::Test
 
   def setup
     @ch = CommandHelper.new
-    @exe = '../bin/scale'
+    @exe = '../bin/tt-scale'
   end
 
   def teardown
