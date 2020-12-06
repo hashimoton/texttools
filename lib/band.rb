@@ -40,12 +40,13 @@ class BandCommand
   
   
   def array_function(command)
-    afunc = eval <<-EOS
+    command_line = <<-EOS
       lambda do |values|
         result = #{command}
         return result
       end
     EOS
+    afunc = eval(command_line)
   end
   
   
