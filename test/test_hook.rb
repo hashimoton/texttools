@@ -51,14 +51,28 @@ class TestHook < MiniTest::Test
     @ch.run("#{@exe} -e ABC", "ABCD\nEFG\nABC\nH\nJKL\n")
     assert_equal "ABCD--HOOKED--EFG\nABC--HOOKED--H--HOOKED--JKL\n", @ch.output
   end
+  
+  def test_hooked_first_unmatch
+    @ch.run("#{@exe} -e ABC", "XYZ\nABCD\nEFG")
+    assert_equal "XYZ\nABCD--HOOKED--EFG", @ch.output
+  end
 
+  def test_hooked_no_match
+    @ch.run("#{@exe} -e A", "XY\n\nZ")
+    assert_equal "XY--HOOKED----HOOKED--Z", @ch.output
+  end
 
-  def test_unooked
+  def test_unhooked
     @ch.run("#{@exe} -u", "ABCD--HOOKED--EFG\nABC--HOOKED--H--HOOKED--JKL\n")
     assert_equal "ABCD\nEFG\nABC\nH\nJKL\n", @ch.output
   end
   
-  
+  def test_unhooked_first_unmatch
+    @ch.run("#{@exe} -u", "XYZ\nABCD--HOOKED--EFG")
+    assert_equal "XYZ\nABCD\nEFG", @ch.output
+  end
+
+
   def test_delimiter
     @ch.run("#{@exe} -d=H= -e ABC", "ABCD\nEFG")
     assert_equal "ABCD=H=EFG", @ch.output
