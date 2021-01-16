@@ -16,7 +16,7 @@ class HookCommand
     
     OptionParser.new do |opt|
       begin
-        opt.version = '0.3.0'
+        opt.version = '0.3.1'
         opt.banner += " FILE [FILE...]"
         opt.separator("\nOptions:")
         
