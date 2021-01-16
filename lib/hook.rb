@@ -44,10 +44,10 @@ class HookCommand
   end
   
   def hook
-    prev_line = ""
+    prev_line = nil
     
     ARGF.each_line do |line|
-      if new_hook?(line)
+      if new_hook?(line) || prev_line.nil?
         print prev_line
       else
         print prev_line.chomp
