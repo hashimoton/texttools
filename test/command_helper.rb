@@ -11,6 +11,8 @@ class CommandHelper
   def run(command, input)
     @output, @error, status = Open3.capture3(command, stdin_data: input)
     @exit_code = status.to_i
+    puts "COMMAND=#{command}"
+    puts "OUTPUT=#{@output}"
   end
   
 end
