@@ -53,6 +53,9 @@ class StickerCommand
       end
       
       output, error, status = Open3.capture3(@command, stdin_data: raw_value)
+      if !error.nil? && !error.empty?
+        $stderr.puts "ERROR: #{error}"
+      end
       
       if @field_index.nil?
          replaced = output.chomp
