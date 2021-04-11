@@ -26,7 +26,7 @@ class StickerCommand
         opt.on('-c=COMMAND',
           "Filter command (cat)") {|v| opts[:c] = v}
         
-        opt.parse!(ARGV)
+        opt.order!(argv)
       rescue => e
         $stderr.puts "ERROR: #{e}.\n#{opt}"
         exit 1

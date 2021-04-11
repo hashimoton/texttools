@@ -28,7 +28,7 @@ class BandCommand
         opt.on('-c=COMMAND',
           "Command for values (values.size)") {|v| opts[:c] = v}
         
-        opt.parse!(ARGV)
+        opt.order!(argv)
       rescue => e
         $stderr.puts "ERROR: #{e}.\n#{opt}"
         exit 1

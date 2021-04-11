@@ -25,7 +25,7 @@ class ScaleCommand
         opt.on('-m=NUMBER',
           "Multiplier(1.0)") {|v| opts[:m] = v}
         
-        opt.parse!(ARGV)
+        opt.order!(argv)
       rescue => e
         $stderr.puts "ERROR: #{e}.\n#{opt}"
         exit 1

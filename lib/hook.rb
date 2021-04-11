@@ -29,7 +29,7 @@ class HookCommand
         opt.on('-v',
           "Invert match") {|v| opts[:v] = v}
         
-        opt.parse!(ARGV)
+        opt.order!(argv)
       rescue => e
         $stderr.puts "ERROR: #{e}.\n#{opt}"
         exit 1

@@ -29,7 +29,7 @@ class WedgeCommand
           'Break point marker (default = --WEDGE--)') {|v| opts[:m] = v}
         opt.on('-o=PREFIX',
           'Output goes to files instead of STDOUT. ') {|v| opts[:o] = v}
-        opt.parse!(ARGV)
+        opt.order!(argv)
       rescue => e
         $stderr.puts "ERROR: #{e}.\n#{opt}"
         exit 1
