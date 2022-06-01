@@ -50,6 +50,13 @@ class WedgeCommand
   end
 
 
+  def new_file(prefix, fcount)
+    file_name = "#{prefix}_#{fcount}"
+    $stderr.puts file_name
+    ofile = File.open(file_name, "w")
+    return ofile
+  end
+
   def main(argv)
     opts = opt_parse(argv)
     bfunc = breakpoint_function(opts[:b].nil? ? DEFAULT_BFUNC : opts[:b])
@@ -59,7 +66,7 @@ class WedgeCommand
     if !is_filter
       prefix = opts[:o]
       fcount = 0
-      ofile = File.open("#{prefix}_#{fcount}", "w")
+      ofile = new_file(prefix, fcount)
       lcount = 0
     end
     
@@ -71,7 +78,7 @@ class WedgeCommand
           ofile.flush
           ofile.close
           fcount += 1
-          ofile = File.open("#{prefix}_#{fcount}", "w")
+          ofile = new_file(prefix, fcount)
           lcount = 0
         end
       end
