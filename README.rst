@@ -13,7 +13,7 @@ Aggregate values for each key.
 Usage::
 
   $ tt-band -h
-  Usage: band [options] FILE [FILE...]
+  Usage: tt-band [options] FILE [FILE...]
 
   Options:
       -d=DELIMITER                     Delimiter(spaces)
